@@ -1,14 +1,21 @@
-const getAllUsers = (req, res) => {
-    //dummy data
-    const data = {
-        id: "1",
-        name: "Prawito",
-        email: "prawito@email.com"
+const userModel = require('./../models/users')
+
+// because get data is asynchronous we use async await
+const getAllUsers = async (req, res) => {
+    try {
+    // in data, we use array because default response data mysql2 is: rows & fields, & we don't need fields
+        const [data] = await userModel.getAllUsers() // so, i just rename [rows] => became [data]
+        res.json({
+            message: "GET All Users Success",
+            data: data
+        });
+    } catch (error) {
+        res.status(500);
+        res.json({
+            message: 'Failed to connect database',
+            serverMessage: `${error}`
+        })
     }
-     res.json({
-        message: "GET All Users Success",
-        data: data
-     });
 }
 
 const createNewUsers = (req, res) => {
@@ -37,7 +44,7 @@ const deleteUser = (req, res) => {
             id: idUser,
             name: "prawito",
             email: "prawito@email.com"
-            
+
         }
     })
 }
