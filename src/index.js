@@ -1,7 +1,8 @@
+require('dotenv').config()
+const PORT = process.env.PORT || 5000
 const express = require("express");
 const usersRoutes = require("./routes/users.js");
 const middlewareLogRequest = require("./middleware/logs.js")
-
 
 const app = express();
 
@@ -13,6 +14,6 @@ app.use(express.json())
 // handler userRoutes from routes/users.js
 app.use("/users", usersRoutes);
 
-app.listen(4000, () => {
-  console.log(`port berjalan di 4000`);
+app.listen(PORT, () => {
+  console.log(`port berjalan di ${PORT}`);
 });
